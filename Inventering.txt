@@ -1,8 +1,0 @@
-Inventering utförd: 06/01/2026 14:09:02
-Datornamn: 5CD3161RJX
-Tillverkare: HP
-Modell: HP ProBook 440 14 inch G9 Notebook PC
-Operativsystem: Microsoft Windows 11 Education N
-Processor: 12th Gen Intel(R) Core(TM) i5-1235U
-RAM (GB): 31.64
-----------------------------------------
