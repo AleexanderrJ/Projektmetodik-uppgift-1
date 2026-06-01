@@ -19,7 +19,7 @@ function Write-Shutdownlog {
         $name = $systemInfo.Name
     }
     catch {
-        # Om datorn inte kan nås, logga felet men krascha inte
+        # Om CIM-anropet misslyckas (t.ex. pga brandvägg eller ingen användare), logga Unknown men krascha inte
         $user = "Unknown"
         $name = $Computername
     } 
