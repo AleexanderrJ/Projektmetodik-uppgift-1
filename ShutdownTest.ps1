@@ -1,19 +1,56 @@
-# Green IT - Avstängning av inaktiv dator
+# Green IT Script
+# Script för att stänga av eller försätta datorn i viloläge
 
-# Skriver ut att scriptet startar
-Write-Host "Scriptet startar"
+# Skapar en loggfil
+$LogFile = "logg.txt"
 
-# Hämtar aktuell tid
-$Time = Get-Date
+# Skriver starttid i loggfilen
+Add-Content $LogFile "Script startat: $(Get-Date)"
 
-# Sparar tidpunkten i loggfilen
-Add-Content -Path ".\log.txt" -Value "Avstängning testad: $Time"
+# Frågar användaren vilket alternativ som ska användas
+$Choice = Read-Host "Välj: 1 = Viloläge  |  2 = Avstängning"
 
-# Bekräftar att loggen skapats
-Write-Host "Logg skapad"
+# Startar felhantering
+try {
 
-# Väntar 10 sekunder
-Start-Sleep -Seconds 10
+    # Om användaren väljer 1
+    if ($Choice -eq "1") {
 
-# Stänger av datorn
-shutdown /s /t 10
+        # Skriver händelsen till loggfilen
+        Add-Content $LogFile "Viloläge aktiverat: $(Get-Date)"
+
+        # Försätter datorn i viloläge
+      shutdown /h
+
+    }
+
+    # Om användaren väljer 2
+    elseif ($Choice -eq "2") {
+
+        # Skriver händelsen till loggfilen
+        Add-Content $LogFile "Avstängning aktiverad: $(Get-Date)"
+
+        # Stänger av datorn efter 30 sekunder
+      shutdown /s /t 10
+
+    }
+
+    # Om användaren skriver fel val
+    else {
+
+        Write-Host "Felaktigt val."
+
+    }
+
+}
+
+# Körs om något fel uppstår
+catch {
+
+    # Skriver felet till loggfilen
+    Add-Content $LogFile "Fel: $_"
+
+    # Visar felmeddelande på skärmen
+    Write-Host "Ett fel uppstod."
+
+}
