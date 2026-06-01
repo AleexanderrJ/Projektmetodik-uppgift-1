@@ -1,15 +1,28 @@
-1..254 | ForEach-Object -Parallel {
+function Get-NetworkClients {
 
-    $ip = "192.168.1.$_"
+    $ipInfo = Get-CimInstance Win32_NetworkAdapterConfiguration |
+    Where-Object { $_.IPAddress -ne $null -and $_.DefaultIPGateway -ne $null }
 
-    if(Test-Connection $ip -Count 1 -Quiet){
+    $ip = $ipInfo.IPAddress[0]
+    $networkBase = ($ip -split '\.')[0..2] -join '.'
 
-        [PSCustomObject]@{
+    $results = 1..254 | ForEach-Object -Parallel {
 
-            IP = $ip
+        $testIP = "$using:networkBase.$_"
 
+        if (Test-Connection -ComputerName $testIP -Count 1 -Quiet -ErrorAction SilentlyContinue) {
+
+            [PSCustomObject]@{
+                IP = $testIP
+            }
         }
 
-    }
+    } -ThrottleLimit 20
 
-} -ThrottleLimit 20 | Export-Csv devices.csv -NoTypeInformation
+    $results | Export-Csv -Path "devices.csv" -NoTypeInformation -Force
+
+    return $results
+}
+
+# RUN IT
+Get-NetworkClients
