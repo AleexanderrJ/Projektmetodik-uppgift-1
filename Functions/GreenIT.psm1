@@ -7,8 +7,16 @@ function Start-GreenIT {
     Write-Host "1. Söker aktiva klienter..."
     Get-NetworkClients
 
+    Write-Host ""
     Write-Host "2. Loggar datorinformation..."
-    Write-Shutdownlog -ComputerName $env:COMPUTERNAME
+
+    $logg = Write-Shutdownlog -ComputerName $env:COMPUTERNAME
+
+    Write-Host "Datornamn: $($logg.ComputerName)"
+    Write-Host "Användare: $($logg.UserName)"
+    Write-Host "Tidpunkt: $($logg.TimeStamp)"
+
+    Write-Host ""
 
     $choice = Read-Host "1 = Viloläge | 2 = Avstängning"
 
