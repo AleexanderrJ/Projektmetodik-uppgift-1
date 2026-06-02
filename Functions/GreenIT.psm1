@@ -1,9 +1,13 @@
 . $PSScriptRoot\ShutdownLogger.ps1
 . $PSScriptRoot\ShutdownTest.ps1
+. $PSScriptRoot\aktivaKlienter.ps1
 
 function Start-GreenIT {
 
-    Write-Host "Loggar datorinformation..."
+    Write-Host "1. Söker aktiva klienter..."
+    Get-NetworkClients
+
+    Write-Host "2. Loggar datorinformation..."
     Write-Shutdownlog -ComputerName $env:COMPUTERNAME
 
     $choice = Read-Host "1 = Viloläge | 2 = Avstängning"
