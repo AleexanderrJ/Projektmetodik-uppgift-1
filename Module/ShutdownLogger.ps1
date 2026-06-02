@@ -4,7 +4,7 @@ function Write-Shutdownlog {
     param (
         # Obligatorisk parameter: namnet på datorn som ska loggas
         [Parameter(Mandatory)]
-        [string]$Computername,
+        [string]$Computername
     )
 
     # Skapa loggmappen om den inte redan finns
