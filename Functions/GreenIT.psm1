@@ -5,7 +5,7 @@
 function Start-GreenIT {
 
     Write-Host "1. Söker aktiva klienter..."
-    Get-NetworkClients
+    $clients = Get-NetworkClients
 
     Write-Host ""
     Write-Host "2. Loggar datorinformation..."
