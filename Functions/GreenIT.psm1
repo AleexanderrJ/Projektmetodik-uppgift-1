@@ -18,16 +18,13 @@ function Start-GreenIT {
 
     Write-Host ""
 
-    $choice = Read-Host "1 = Viloläge | 2 = Avstängning"
-
-    if ($choice -eq "1") {
+    if ($clients.Count -gt 0) {
+        Write-Host "Aktiva klienter hittades. Datorn sätts i viloläge."
         Start-Hibernate
     }
-    elseif ($choice -eq "2") {
-        Start-Shutdown
-    }
     else {
-        Write-Host "Felaktigt val."
+        Write-Host "Inga aktiva klienter hittades. Datorn stängs av."
+        Start-Shutdown
     }
 }
 
