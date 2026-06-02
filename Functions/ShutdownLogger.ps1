@@ -4,11 +4,17 @@ function Write-Shutdownlog {
     param (
         # Obligatorisk parameter: namnet på datorn som ska loggas
         [Parameter(Mandatory)]
-        [string]$Computername,
-
-        # Valfri parameter: sökväg till loggfilen 
-        [string]$LogPath = ".\shutdown_log.csv"
+        [string]$Computername
     )
+
+    # Skapa loggmappen om den inte redan finns
+    $logfolder = "C:\Gron-IT-Logs"
+    if (-not (Test-Path $logfolder)) {
+        New-Item -ItemType Directory -Path $logfolder | Out-Null # Kör kommandot men visa inget i terminalen
+    }
+
+    # Bestäm loggfilens sökväg
+    $Logpath = Join-Path $logfolder "shutdown_log.csv"
 
     # Försök hämta systeminformation från den angivna datorn via CIM (ex. inloggad användare och datornamn)
     try {
