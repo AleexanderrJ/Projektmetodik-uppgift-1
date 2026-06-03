@@ -1,8 +1,9 @@
 function Start-Shutdown {
 
-    Write-Host "Läser in klienter..."
-
-    $devices = Import-Csv "C:\Gron-IT-Logs\devices.csv"
+    Write-Host "Läser in inaktiva klienter..."
+    
+    # Läs in listan över inaktiva klienter
+    $devices = Import-Csv "C:\Gron-IT-Logs\inactive_devices.csv"
 
     foreach ($device in $devices) {
 
