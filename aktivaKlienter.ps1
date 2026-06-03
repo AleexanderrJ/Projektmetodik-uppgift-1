@@ -29,10 +29,19 @@ function Get-NetworkClients {
         # Testa om IP-adressen svarar på ping
         if (Test-Connection -ComputerName $testIP -Count 1 -Quiet -ErrorAction SilentlyContinue) {
 
-            # Returnera objekt med hittad IP-adress
-            [PSCustomObject]@{
-                IP = $testIP
-            }
+          # Försök hämta hostname från IP-adressen
+try {
+    $hostname = [System.Net.Dns]::GetHostEntry($testIP).HostName
+}
+catch {
+    $hostname = "Unknown"
+}
+
+# Returnera objekt med hostname istället för bara IP
+[PSCustomObject]@{
+    Hostname = $hostname
+    IP       = $testIP
+}
         }
 
     } -ThrottleLimit 20
