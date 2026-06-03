@@ -26,10 +26,11 @@ function Find-InactiveClients {
 
     foreach ($device in $devices) {
         $ip = $device.IP
+        $hostname = $device.Hostname
 
         try {
             # Hämta information från datorn för att kunna se hur länge den varit aktiv/inaktiv
-            $os = Get-CimInstance -ClassName Win32_OperatingSystem -ComputerName $ip -ErrorAction Stop
+            $os = Get-CimInstance -ClassName Win32_OperatingSystem -ComputerName $hostname -ErrorAction Stop
 
             # Hämta senaste input-tid
             $lastInput = $os.LastInputTime
@@ -41,6 +42,7 @@ function Find-InactiveClients {
             if ($idleMinutes -gt 2) {
                 $inactive += [PSCustomObject]@{
                     IP = $ip
+                    Hostname = $hostname
                     IdleMinutes = [math]::Round($idleMinutes, 0)
                 }
             }
@@ -49,6 +51,7 @@ function Find-InactiveClients {
             # Om vi inte kan ansluta → räkna som inaktiv
             $inactive += [PSCustomObject]@{
                 IP = $ip
+                Hostname = $hostname
                 IdleMinutes = "No response"
             }
         }
@@ -60,4 +63,5 @@ function Find-InactiveClients {
     Write-Host "Hittade $($inactive.Count) inaktiva klienter."
     return $inactive
 }
+
 
