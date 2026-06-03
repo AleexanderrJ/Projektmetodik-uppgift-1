@@ -21,7 +21,7 @@ function Get-NetworkClients {
     $networkBase = ($ip -split '\.')[0..2] -join '.'
 
     # Skanna alla IP-adresser i nätverket (1–254)
-    $results = 1..254 | ForEach-Object -Parallel {
+    $results = 1..254 | ForEach-Object {
 
         # Bygg IP-adressen som ska testas
         $testIP = "$using:networkBase.$_"
@@ -44,7 +44,7 @@ catch {
 }
         }
 
-    } -ThrottleLimit 20
+    }
 
     # Exportera resultatet till CSV i loggmappen
     $results | Export-Csv -Path $LogPath -NoTypeInformation -Force
