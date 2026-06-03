@@ -1,20 +1,21 @@
 function Start-Shutdown {
 
-    Write-Host "Läser in inaktiva klienter..."
-    
-    # Läs in listan över inaktiva klienter
-    $devices = Import-Csv "C:\Gron-IT-Logs\inactive_devices.csv"
+Write-Host "Läser in inaktiva klienter..."
 
-    foreach ($device in $devices) {
+# Läs in listan över inaktiva klienter
+$devices = Import-Csv "C:\Gron-IT-Logs\inactive_devices.csv"
 
-        $ip = $device.IP
+foreach ($device in $devices) {
 
-        try {
-            Stop-Computer -ComputerName $ip -Force -ErrorAction Stop
-            Write-Host "Stängde av $ip"
-        }
-        catch {
-            Write-Host "Kunde inte stänga av $ip"
-        }
-    }
+# Hämta hostname från CSV-filen
+$hostname = $device.HostName
+
+try {
+Stop-Computer -ComputerName $hostname -Force -ErrorAction Stop
+Write-Host "Stängde av $hostname"
+}
+catch {
+Write-Host "Kunde inte stänga av $hostname"
+}
+}
 }
