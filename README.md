@@ -8,15 +8,15 @@ Syftet med detta projekt är att skapa en PowerShell-modul för nätverksinvente
 
 **Sprint 0 (Fredag)** 
 * Etablera vår arbetsmiljö och Scrum-struktur (inklusive product vision, product backlog och sprintplanering).
-* Skapa ett gemensamt GitHub-repo komplett med en fungerande Project Board.
-***Mål (Inkrement 1):** Målet är att ha en genomtänkt planering inför sprint 1. Alla i teamet ska känna sig bekväma med uppgiften vi står inför och hur vi påbörjar den.
+* Skapa ett gemensamt GitHub-repo komplett med en fungerande Project Board. 
+Målet är att ha en genomtänkt planering inför sprint 1. Alla i teamet ska känna sig bekväma med uppgiften vi står inför och hur vi påbörjar den.
 
 **Sprint 1 (Måndag)**
   * Skapa ett script som ska kunna skanna av nätverket efter enheter som svarar på ping och exportera en .csv fil med ip.
   * Skapa ett script som ska logga datornamn, användare och tidpunkt när avstängningskommandot skickades.
   * Skapa ett script som kan trigga en avstängning eller sätta en dator i viloläge med kommandot shutdown /h)
   * Se över om vi kan dra nytta av att använda en modulfil som kallar på functions istället för att all kod ligger i samma fil.
-  **Mål (Inkrement 2):** Målet är att testa så att dessa scripts går att exekvera.
+ Målet är att testa så att dessa scripts går att exekvera.
 
 **Sprint 2 (Tisdag)**
   * Addera ett skript som avgör om en dator är inaktiv för att sedan baka in det i psm1
@@ -25,6 +25,7 @@ Syftet med detta projekt är att skapa en PowerShell-modul för nätverksinvente
   * Skapa en mapplogik som skapar en loggmapp om den inte redan finns där alla logg-relaterade filer ska hamna
   * Skapa modulskriptet som kallar på functions
   * Pusha alla skripts till main för att sedan prova att köra modulskriptet (psm1)
+Målet är att kunna exekvera modulfilen och alla skripts körs korrekt för att kunna stänga av en klient i nätverket som är inaktiv
 
 **Sprint 3 (Onsdag)** 
   * Se över om vi behöver finslipa på något skript och eventuellt addera någonting
