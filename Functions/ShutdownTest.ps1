@@ -1,15 +1,19 @@
-function Start-Hibernate {
-
-    Write-Host "Datorn går till viloläge..."
-
-    shutdown /h
-
-}
-
 function Start-Shutdown {
 
-    Write-Host "Datorn stängs av om 10 sekunder..."
+    Write-Host "Läser in klienter..."
 
-    shutdown /s /t 10
+    $devices = Import-Csv "C:\Gron-IT-Logs\devices.csv"
 
+    foreach ($device in $devices) {
+
+        $ip = $device.IP
+
+        try {
+            Stop-Computer -ComputerName $ip -Force -ErrorAction Stop
+            Write-Host "Stängde av $ip"
+        }
+        catch {
+            Write-Host "Kunde inte stänga av $ip"
+        }
+    }
 }
