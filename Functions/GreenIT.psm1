@@ -5,6 +5,10 @@
 . $PSScriptRoot\Inactiveclients.ps1
 
 function Start-GreenIT {
+    param(
+        # Använd -WhatIf för att testa utan att faktiskt stänga av klienter
+        [switch]$WhatIf
+    )
 
     Write-Host "1. Söker aktiva klienter..."
     $clients = Get-NetworkClients
@@ -16,22 +20,19 @@ function Start-GreenIT {
 
     Write-Host ""
 
-    # Logga serverinformation
-    $logg = Write-Shutdownlog -ComputerName $env:COMPUTERNAME
-
-    Write-Host "Datornamn: $($logg.ComputerName)"
-    Write-Host "Användare: $($logg.UserName)"
-    Write-Host "Tidpunkt: $($logg.TimeStamp)"
-
-    Write-Host ""
-
     # Om inaktiva klienter hittas
     if ($inactiveClients.Count -gt 0) {
 
         Write-Host "$($inactiveClients.Count) inaktiva klienter hittades."
-        Write-Host "Shutdown startas..."
 
-        Start-Shutdown
+        if ($WhatIf) {
+            Write-Host "Testläge är aktivt. Ingen dator kommer stängas av."
+        }
+        else {
+            Write-Host "Shutdown startas..."
+        }
+
+        Start-Shutdown -WhatIf:$WhatIf
 
     }
     else {
@@ -41,4 +42,4 @@ function Start-GreenIT {
     }
 }
 
-Export-ModuleMember -Function Start-GreenIT
+Export-ModuleMember -Function Start-GreenIT, Test-GreenITLoggedOff
