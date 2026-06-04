@@ -53,6 +53,27 @@ Projektet bygger en PowerShell-modul för nätverksinventering som identifierar 
 
 ---
 
+## Sprint 0
+
+**Sprintmål:** Etablera arbetsmiljön och Scrum-strukturen, fördela roller och planera inför sprint 1.
+
+### Vad vi gjorde
+- **11:00** – Vi delade ut rollerna i gruppen.
+- Projektledaren satte upp GitHub: bjöd in alla deltagare som contributors och la upp en branch för varje utvecklare.
+- **12:00** – Projektledaren la upp User Stories.
+- **12:15** – Vi resonerade tillsammans om vad som passar vem och vad som är rimligt att hinna med.
+- **12:30–16:00** – Vi diskuterade designen och hur alla skript kan fungera tillsammans.
+- **16:00** – Vi planerade för nästa sprint och vad som behövs, och avslutade sprinten.
+
+### Vad som gick bra
+- Tydlig rollfördelning och en fungerande GitHub-struktur med branch per utvecklare på plats direkt.
+- Gemensam genomgång av designen, så alla hade samma bild av hur skripten skulle hänga ihop.
+
+### Åtgärder till nästa sprint
+- Alla börjar bygga sina skript som funktioner enligt den gemensamma designen.
+
+---
+
 ## Sprint 1
 
 **Sprintmål:** Etablera arbetssätt och struktur, alla bygger sina skript med funktioner.
@@ -143,3 +164,34 @@ Projektet bygger en PowerShell-modul för nätverksinventering som identifierar 
 ### Åtgärder till nästa sprint
 - Nätverksscannern måste fungera.
 - Felsöka varför DNS-namnen inte fungerar.
+
+---
+
+## Sprint 4
+
+**Sprintmål:** Slutföra felsökningen inför redovisning – se till att en aktiv klient inte stängs av, och verifiera produkten i VM-labbet.
+
+### Vad vi gjorde
+- **09:00** – Standup. Sprintmålet sattes: åtgärda den sista buggen där skriptet stängde av en klient även när den var aktiv. Vi satt i grupprummet och Alex kopplade upp sin dator på projektorn så alla såg.
+- **09:30** – Alla var delaktiga och kunde följa output och felmeddelanden på projektorn. Vi gav idéer och sökte lösningar tillsammans.
+- **11:20** – Felsökningen pågick fortfarande. Vi gick tillbaka till den version som hade fungerat när Alex testade själv hemma. Den hade fungerat hemma men inte vid dagens test, varför vi börjat lägga till mycket extra kod.
+- **11:45** – Scrum Master gjorde talkort till alla deltagare inför redovisningen.
+- **12:15** – Alex fick en fungerande version genom att gå tillbaka till versionen utan dagens nya kod och bara ändra så att en klient räknas som inaktiv när den är utloggad (vilket sker automatiskt efter en viss tid) i stället för enbart på timern.
+- **13:00** – Utvecklarna och projektledaren gick igenom vad som ändrats och fixade kommentarer i koden. Inactiveclients, GreenIT.psm1 och ShutdownTest hade ändrats.
+- **13:15** – Deltagarna laddade ner talkorten och kontrollerade att allt stämde, medan Scrum Master skrev på loggen.
+- **13:33** – Alla säkerställde att sin kod var färdig och Alex testade produkten ännu en gång. Projektledaren visade på projektorn hur han hämtade den färdiga produkten från GitHub in i VM-labbmiljön och testade att allt fungerade.
+- **13:40** – Scrum Master skulle få CMD-kommandot att köras automatiskt via en bat-fil.
+- **13:50** – Bat-filen gav många fel. Gabbi föreslog att köra via CMD i stället, vilket fungerade utan fel.
+- **14:00** – Alex testade med ytterligare en klient-VM (tidigare testades bara med en server och en klient). Problemet var att den nya inloggade datorn inte kunde hanteras.
+- **14:20** – Alex klonade sin andra VM, vilket gjorde att servern blandade ihop klienterna och skriptet inte fungerade som det skulle.
+- **14:28** – Nu fungerade inte heller den första VM:en, eftersom den cachade den kopierade versionen / blandade ihop hostnamnen.
+- **14:34** – Alex kollade i DNS Manager och såg att en tredje PC fanns. Den gick att pinga och vi kontrollerade om den fungerade med produkten.
+
+### Vad som gick bra
+- Vi lyckades lösa den sista buggen och fick en fungerande produkt inför redovisningen.
+- Hela gruppen var delaktig i felsökningen tack vare att allt visades på projektorn.
+
+### Problem
+- Stressigt och mycket felsökning under dagen.
+- Kloning av VM:ar gjorde att servern blandade ihop klienternas hostnamn, vilket tillfälligt bröt produkten.
+- Bat-filen för att köra kommandot automatiskt gav fel; vi fick falla tillbaka på att köra via CMD.
