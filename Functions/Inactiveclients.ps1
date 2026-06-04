@@ -1,4 +1,4 @@
-Funktioner för att hitta inaktiva enheter i nätverket
+# Funktioner för att hitta inaktiva enheter i nätverket
 
 function Get-LocalComputerIdentifiers {
     $ids = New-Object System.Collections.Generic.List[string]
